@@ -11,7 +11,21 @@ class App extends Component {
   };
 
   handleDataFetch = () => {
-    console.log("click");
+    fetch(API)
+      .then(response => {
+        if (response.ok) {
+          return response;
+        }
+        throw Error(response.status);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          users: data.results
+        });
+      })
+      .catch(error => console.log(error + "ola boga"));
   };
   render() {
     const users = this.state.users;
